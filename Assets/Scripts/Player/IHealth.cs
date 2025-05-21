@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IScore
+public interface IHealth
 {
-    public void AddScore(int scoreToAdd);
+    public void AddHealth(int health);
 }

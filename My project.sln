@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Player", "Player.csproj", "{09D4C4A0-1145-FC47-1060-D37D20944110}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enemy", "Enemy.csproj", "{B9FD2914-D092-E66F-2DAE-1501A6B4DB61}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{32C3BDE6-E125-3128-82C1-25D0441455A3}"
 EndProject
 Global
@@ -9,6 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09D4C4A0-1145-FC47-1060-D37D20944110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D4C4A0-1145-FC47-1060-D37D20944110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D4C4A0-1145-FC47-1060-D37D20944110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D4C4A0-1145-FC47-1060-D37D20944110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FD2914-D092-E66F-2DAE-1501A6B4DB61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FD2914-D092-E66F-2DAE-1501A6B4DB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FD2914-D092-E66F-2DAE-1501A6B4DB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FD2914-D092-E66F-2DAE-1501A6B4DB61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32C3BDE6-E125-3128-82C1-25D0441455A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32C3BDE6-E125-3128-82C1-25D0441455A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C3BDE6-E125-3128-82C1-25D0441455A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
