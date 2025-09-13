@@ -60,6 +60,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AsyncCheck.cs" />
+    <Compile Include="Assets\Scripts\ISharedFunctionality.cs" />
+    <Compile Include="Assets\Scripts\ProductBSpawner.cs" />
+    <Compile Include="Assets\Scripts\ProductB.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\ProductA.cs" />
+    <Compile Include="Assets\Scripts\Command Pattern\CubeClickCommand.cs" />
+    <Compile Include="Assets\Scripts\ProductASpawner.cs" />
+    <Compile Include="Assets\Scripts\Command Pattern\ICommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
