@@ -14,10 +14,11 @@ namespace Player
     public class PlayerBulletController : MonoBehaviour
     {
         [SerializeField] private float speed;
-        Rigidbody2D rb;
         [SerializeField] private DirectionForBulletSpawn directionForBulletSpawn;
 
-        public Vector3 DirectionToMove
+        private Rigidbody2D rb;
+       
+        public Vector2 DirectionToMove
         {
             get
             {
@@ -46,7 +47,7 @@ namespace Player
         // Update is called once per frame
         void FixedUpdate()
         {
-            rb.velocity = DirectionToMove * Time.fixedDeltaTime * speed;
+            rb.velocity = (DirectionToMove + Vector2.right) * Time.fixedDeltaTime * speed;
         }
     }
 }
