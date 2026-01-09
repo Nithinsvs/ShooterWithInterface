@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class EnemySpawner : MonoBehaviour
 {
-    public abstract ISharedFunctionality CreateEnemy();
+    public abstract IHealth CreateEnemy();
 
     public void SpawnEnemy(int localHealth)
     {
-        ISharedFunctionality functionality = CreateEnemy();
+        IHealth functionality = CreateEnemy();
         functionality.health = localHealth;
         Debug.Log($"enemy with health{functionality.health} has been spawned");
     }

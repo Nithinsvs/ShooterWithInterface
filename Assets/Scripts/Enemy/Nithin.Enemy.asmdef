@@ -1,7 +1,9 @@
 {
-    "name": "Player",
+    "name": "Nithin.Enemy",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:41b0bf7d0029c444e8825b9fe6accf08"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Player
+namespace Nithin.Player
 {
     public class PlayerHealth : MonoBehaviour, IHealth
     {
+        public event Action<int> OnHealthChange;
         public SaveDataObj saveDataScriptableObject;
-        [SerializeField] private Text scoreText;
 
         private int _health;
         public int Health
@@ -38,7 +38,8 @@ namespace Player
         {
             Health += health;
             saveDataScriptableObject.health = Health;
-            scoreText.text = health.ToString();
+
+            OnHealthChange?.Invoke(health);
         }
     }
 }

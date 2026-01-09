@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Enemy
+namespace Nithin.Enemy
 {
     public class EnemyMovement : MonoBehaviour
     {

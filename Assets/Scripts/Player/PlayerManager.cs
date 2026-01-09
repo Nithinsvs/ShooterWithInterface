@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Player
+namespace Nithin.Player
 {
     public class PlayerManager : MonoBehaviour, IScore
     {

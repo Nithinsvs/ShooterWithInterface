@@ -1,30 +1,25 @@
-using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Enemy
+namespace Nithin.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
         public static Action enemyDead;
+        
+        private IScore scoreAdder;
+        [SerializeField] private MonoBehaviour scoreAdderComponent;
 
         [SerializeField] private GameObject enemyPrefab;        
-        [SerializeField] private MonoBehaviour scoreAdderComponent;
-        private IHealth healthComponent;
-        [SerializeField] private MonoBehaviour healthComponentThing;
 
         private Queue<GameObject> enemyObjects;
-        private IScore scoreAdder;
-        private int healthToAdd = 1;
-        private int enemyScore;
 
         void Awake()
         {
             scoreAdder = scoreAdderComponent as IScore;
-            healthComponent = healthComponentThing as IHealth;
         }
 
         private void OnEnable()
@@ -72,7 +67,6 @@ namespace Enemy
         private void DeadCondition()
         {
             scoreAdder.AddScore(1);
-            healthComponent.AddHealth(healthToAdd);
         }
     }
 }

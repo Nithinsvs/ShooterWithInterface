@@ -1,0 +1,16 @@
+{
+    "name": "Nithin.Player",
+    "rootNamespace": "",
+    "references": [
+        "GUID:41b0bf7d0029c444e8825b9fe6accf08"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

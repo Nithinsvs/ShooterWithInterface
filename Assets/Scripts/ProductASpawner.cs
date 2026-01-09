@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProductASpawner : EnemySpawner
 {
-    public override ISharedFunctionality CreateEnemy()
+    public override IHealth CreateEnemy()
     {
         return new ProductA();
     }
