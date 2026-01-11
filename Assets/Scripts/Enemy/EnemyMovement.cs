@@ -7,8 +7,11 @@ namespace Nithin.Enemy
 {
     public class EnemyMovement : MonoBehaviour
     {
+        public Action<EnemyMovement> OnEnemyDied;
+
         [SerializeField] private float speed = 10f;
-        Rigidbody2D rb;
+
+        private Rigidbody2D rb;
 
         private void Awake()
         {
@@ -30,7 +33,7 @@ namespace Nithin.Enemy
             else if (collision.gameObject.CompareTag("Bullet"))
             {
                 collision.gameObject.SetActive(false);
-                EnemyManager.enemyDead?.Invoke();
+                OnEnemyDied?.Invoke(this);
                 gameObject.SetActive(false);
             }
         }

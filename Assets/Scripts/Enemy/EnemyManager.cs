@@ -7,29 +7,17 @@ using Random = UnityEngine.Random;
 namespace Nithin.Enemy
 {
     public class EnemyManager : MonoBehaviour
-    {
-        public static Action enemyDead;
-        
+    {        
         private IScore scoreAdder;
         [SerializeField] private MonoBehaviour scoreAdderComponent;
-
         [SerializeField] private GameObject enemyPrefab;        
 
         private Queue<GameObject> enemyObjects;
+        private List<EnemyMovement> gameObjects = new();
 
         void Awake()
         {
             scoreAdder = scoreAdderComponent as IScore;
-        }
-
-        private void OnEnable()
-        {
-            enemyDead += DeadCondition;
-        }
-
-        private void OnDisable()
-        {
-            enemyDead -= DeadCondition;
         }
 
         // Start is called before the first frame update
@@ -51,9 +39,16 @@ namespace Nithin.Enemy
             {
                 GameObject spawnedObj = enemyObjects.Dequeue();
                 spawnedObj.SetActive(true);
+                Register(spawnedObj.GetComponent<EnemyMovement>());
                 StartCoroutine(DisableEnemy(spawnedObj));
                 yield return new WaitForSeconds(3f);
             }
+        }
+
+        private void Register(EnemyMovement go)
+        {
+            gameObjects.Add(go);
+            go.OnEnemyDied += HandleDeath;
         }
 
         IEnumerator DisableEnemy(GameObject obj)
@@ -64,8 +59,9 @@ namespace Nithin.Enemy
             enemyObjects.Enqueue(obj);
         }
 
-        private void DeadCondition()
+        private void HandleDeath(EnemyMovement go)
         {
+            Debug.Log("Getting enemy death");
             scoreAdder.AddScore(1);
         }
     }
