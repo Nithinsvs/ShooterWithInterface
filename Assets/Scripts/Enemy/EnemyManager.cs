@@ -61,8 +61,10 @@ namespace Nithin.Enemy
 
         private void HandleDeath(EnemyMovement go)
         {
-            Debug.Log("Getting enemy death");
-            scoreAdder.AddScore(1);
+            if(go is IScoreProvider score)
+            {
+                scoreAdder.AddScore(score.ScoreValue);
+            }
         }
     }
 }

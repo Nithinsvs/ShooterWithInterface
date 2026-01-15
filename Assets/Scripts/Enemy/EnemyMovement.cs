@@ -5,13 +5,17 @@ using UnityEngine;
 
 namespace Nithin.Enemy
 {
-    public class EnemyMovement : MonoBehaviour
+    public class EnemyMovement : MonoBehaviour, IScoreProvider
     {
-        public Action<EnemyMovement> OnEnemyDied;
+        public event Action<EnemyMovement> OnEnemyDied;
 
         [SerializeField] private float speed = 10f;
+        [SerializeField] private int score = 2;
+
 
         private Rigidbody2D rb;
+
+        public int ScoreValue => score;
 
         private void Awake()
         {

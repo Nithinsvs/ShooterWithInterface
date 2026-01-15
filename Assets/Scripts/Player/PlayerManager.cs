@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Nithin.Player
 {
-    public class PlayerManager : MonoBehaviour, IScore
+    public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private float speed;
         [SerializeField] private GameObject bulletPrefab;
@@ -13,7 +13,6 @@ namespace Nithin.Player
         [SerializeField] private Queue<GameObject> bulletsPool;
         [SerializeField] private Rigidbody2D rb;
 
-        private int score = 0;
         Vector2 movement;
 
         private void Awake()
@@ -48,7 +47,6 @@ namespace Nithin.Player
                 currentBullet.transform.position = transform.position;
                 currentBullet.SetActive(true);
                 StartCoroutine(ReturnToPool(currentBullet));
-
             }
         }
 
@@ -66,11 +64,6 @@ namespace Nithin.Player
             yield return new WaitForSeconds(3f);
             bullet.SetActive(false);
             bulletsPool.Enqueue(bullet);
-        }
-
-        public void AddScore(int scoreToAdd)
-        {
-            score += scoreToAdd;
         }
     }
 }
