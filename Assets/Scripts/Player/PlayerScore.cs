@@ -6,17 +6,21 @@ using UnityEngine;
 public class PlayerScore : MonoBehaviour, IScore
 {
     public event Action<int> ScoreUpdated;
-    private int score = 0;
+    public SaveDataObj saveDataScriptableObject;
+
+    private int _score = 0;
+
+
+    private void Awake()
+    {
+        _score = saveDataScriptableObject.score;
+    }
 
     public void AddScore(int scoreToAdd)
     {
-        score += scoreToAdd;
-        ScoreUpdated?.Invoke(score);
-    }
+        _score += scoreToAdd;
+        ScoreUpdated?.Invoke(_score);
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
+        saveDataScriptableObject.score = _score;
     }
 }

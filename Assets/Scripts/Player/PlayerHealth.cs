@@ -9,7 +9,6 @@ namespace Nithin.Player
     public class PlayerHealth : MonoBehaviour, IHealth
     {
         public event Action<int> OnHealthChange;
-        public SaveDataObj saveDataScriptableObject;
 
         private int _health;
         public int Health
@@ -29,16 +28,9 @@ namespace Nithin.Player
             }
         }
 
-        private void Awake()
-        {
-            _health = saveDataScriptableObject.health;
-        }
-
         public void AddHealth(int health)
         {
             Health += health;
-            saveDataScriptableObject.health = Health;
-
             OnHealthChange?.Invoke(health);
         }
     }
