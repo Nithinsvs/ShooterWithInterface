@@ -9,8 +9,6 @@ namespace Nithin.UI
     public class PlayerUI : MonoBehaviour
     {
         [SerializeField] private Text _currentScoreValue;
-        [SerializeField] private PlayerScore _playerScore;
-
         [SerializeField] private PlayerHealth _playerHealth;
         [SerializeField] private SaveDataObj _saveDataObj;
 
@@ -24,8 +22,14 @@ namespace Nithin.UI
 
         private void OnEnable()
         {
-            _playerScore.ScoreUpdated += ShowScore;
+            PlayerScore.ScoreUpdated += ShowScore;
             _playerHealth.OnHealthChange += ShowHealth;
+        }
+
+        private void OnDisable()
+        {
+            PlayerScore.ScoreUpdated -= ShowScore;
+            _playerHealth.OnHealthChange -= ShowHealth;
         }
 
         private void ShowHealth(int currentHealth)

@@ -1,10 +1,7 @@
 {
-    "name": "Nithin.Player",
+    "name": "Nithin.SaveSystem",
     "rootNamespace": "",
-    "references": [
-        "GUID:41b0bf7d0029c444e8825b9fe6accf08",
-        "GUID:85d7473bce949b34d8e8aae594cad2af"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

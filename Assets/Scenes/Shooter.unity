@@ -421,9 +421,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d29a75f5ca7654cb9edea05095352d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1037471296}
-  playerScore: {fileID: 1347036166}
-  playerHealth: {fileID: 787374433}
+  _currentScoreValue: {fileID: 1037471296}
+  _playerScore: {fileID: 1347036166}
+  _playerHealth: {fileID: 787374433}
+  _saveDataObj: {fileID: 11400000, guid: f3f466656a58fe74ca91676aaa22cd38, type: 2}
 --- !u!1 &1037471294
 GameObject:
   m_ObjectHideFlags: 0

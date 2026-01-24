@@ -47,7 +47,7 @@ namespace Player
         // Update is called once per frame
         void FixedUpdate()
         {
-            rb.velocity = (DirectionToMove + Vector2.right) * Time.fixedDeltaTime * speed;
+            rb.velocity = DirectionToMove * Time.fixedDeltaTime * speed;
         }
     }
 }

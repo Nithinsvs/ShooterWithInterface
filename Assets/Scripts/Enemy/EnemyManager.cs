@@ -1,3 +1,4 @@
+using Nithin.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Nithin.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {        
-        private IScore scoreAdder;
+        private IScoreReceiver scoreReceiver;
         [SerializeField] private MonoBehaviour scoreAdderComponent;
         [SerializeField] private GameObject enemyPrefab;        
 
@@ -17,7 +18,7 @@ namespace Nithin.Enemy
 
         void Awake()
         {
-            scoreAdder = scoreAdderComponent as IScore;
+            scoreReceiver = scoreAdderComponent as IScoreReceiver;
         }
 
         // Start is called before the first frame update
@@ -63,7 +64,7 @@ namespace Nithin.Enemy
         {
             if(go is IScoreProvider score)
             {
-                scoreAdder.AddScore(score.ScoreValue);
+                scoreReceiver.AddScore(score.ScoreValue);
             }
         }
     }
