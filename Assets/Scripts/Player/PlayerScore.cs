@@ -10,30 +10,23 @@ namespace Nithin.Player
     public class PlayerScore : MonoBehaviour, IScoreReceiver
     {
         public static event Action<int> ScoreUpdated;
-        public SaveDataObj saveDataScriptableObject;
-        public PlayerSaveData playerSaveData;
 
         private int _score = 0;
 
-
-        private void Awake()
-        {
-            _score = saveDataScriptableObject.score;
-        }
         private void Start()
         {
-            SaveManager.LoadPlayerData();
+            PlayerSaveData savedData = SaveManager.LoadPlayerData();
+            if(savedData == null)
+            {
+                return;
+            }
+            ScoreUpdated?.Invoke(savedData.score);
         }
 
         public void AddScore(int scoreToAdd)
         {
             _score += scoreToAdd;
             ScoreUpdated?.Invoke(_score);
-
-            saveDataScriptableObject.score = _score;
-            playerSaveData = new();
-            playerSaveData.score = scoreToAdd;
-            //SaveManager.SavePlayerData(playerSaveData);
         }
     }
 }

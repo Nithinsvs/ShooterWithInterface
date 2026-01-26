@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     private void SaveGame(int score)
     {
-        SaveManager.SavePlayerData(score);
+        PlayerSaveData savedData = new();
+        savedData.score = score;
+        SaveManager.SavePlayerData(savedData);
     }
 }

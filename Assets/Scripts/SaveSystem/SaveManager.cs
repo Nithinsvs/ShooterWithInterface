@@ -10,21 +10,21 @@ namespace Nithin.SaveSystem
     {
         static string _storagePath = Application.persistentDataPath + "/playerData";
 
-
-        public static void SavePlayerData(int score)
+        public static void SavePlayerData(PlayerSaveData savedata)
         {
-            PlayerSaveData playerSaveData = new PlayerSaveData();
-            playerSaveData.score = score;
-
-            string playerDataFile = JsonUtility.ToJson(playerSaveData);
+            string playerDataFile = JsonUtility.ToJson(savedata);
             File.WriteAllText(_storagePath, playerDataFile);
         }
 
-        public static void LoadPlayerData()
+        public static PlayerSaveData LoadPlayerData()
         {
-            
+            if(!File.Exists(_storagePath))
+            {
+                return null;
+            }
             string readFile = File.ReadAllText(_storagePath);
             PlayerSaveData loadedPlayerData = JsonUtility.FromJson<PlayerSaveData>(readFile);
+            return loadedPlayerData;
         }
 
     }

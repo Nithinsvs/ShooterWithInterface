@@ -10,15 +10,6 @@ namespace Nithin.UI
     {
         [SerializeField] private Text _currentScoreValue;
         [SerializeField] private PlayerHealth _playerHealth;
-        [SerializeField] private SaveDataObj _saveDataObj;
-
-        private int _score;
-
-        private void Awake()
-        {
-            _score = _saveDataObj.score;
-            ShowScore(_score);
-        }
 
         private void OnEnable()
         {
