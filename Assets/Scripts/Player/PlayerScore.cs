@@ -1,5 +1,4 @@
 using Nithin.Interfaces;
-using Nithin.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,18 +9,19 @@ namespace Nithin.Player
     public class PlayerScore : MonoBehaviour, IScoreReceiver
     {
         public static event Action<int> ScoreUpdated;
+        public event Action<int> PlayerScoreGranted;
 
         private int _score = 0;
 
-        private void Start()
+        private void OnEnable()
         {
-            PlayerSaveData savedData = SaveManager.LoadPlayerData();
-            if(savedData == null)
-            {
-                return;
-            }
-            ScoreUpdated?.Invoke(savedData.score);
+
         }
+
+       /* private void SetScore(PlayerSaveData currentData)
+        {
+            ScoreUpdated?.Invoke(currentData.score);
+        }*/
 
         public void AddScore(int scoreToAdd)
         {

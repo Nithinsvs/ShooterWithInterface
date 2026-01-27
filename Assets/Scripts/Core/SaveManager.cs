@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace Nithin.SaveSystem
+namespace Nithin.Core
 {
     public static class SaveManager
     {
@@ -14,6 +14,7 @@ namespace Nithin.SaveSystem
         {
             string playerDataFile = JsonUtility.ToJson(savedata);
             File.WriteAllText(_storagePath, playerDataFile);
+            Debug.Log("Saved player data");
         }
 
         public static PlayerSaveData LoadPlayerData()
@@ -24,21 +25,11 @@ namespace Nithin.SaveSystem
             }
             string readFile = File.ReadAllText(_storagePath);
             PlayerSaveData loadedPlayerData = JsonUtility.FromJson<PlayerSaveData>(readFile);
+            Debug.Log("Loaded player data");
             return loadedPlayerData;
         }
 
     }
 
-    [Serializable]
-    public class PlayerSaveData
-    {
-        public int score;
-        public int health;
-
-        public PlayerSaveData()
-        {
-            score = 0;
-            health = 0;
-        }
-    }
+   
 }
