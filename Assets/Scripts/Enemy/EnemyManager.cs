@@ -60,12 +60,12 @@ namespace Nithin.Enemy
             enemyObjects.Enqueue(obj);
         }
 
-        private void HandleDeath(EnemyMovement go)
+        private void HandleDeath(IScoreProvider go)
         {
-            if(go is IScoreProvider score)
-            {
-                scoreReceiver.AddScore(score.ScoreValue);
-            }
+            /*if(go is IScoreProvider score)
+            {*/
+                scoreReceiver.AddScore(go.ScoreValue);
+            /*}*/
         }
     }
 }

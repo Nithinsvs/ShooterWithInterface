@@ -1,3 +1,4 @@
+using Nithin.Core;
 using Nithin.Interfaces;
 using System;
 using System.Collections;
@@ -15,13 +16,23 @@ namespace Nithin.Player
 
         private void OnEnable()
         {
-
+            GameEvents.OnPlayerSaveDataLoaded += SetScore;
         }
 
-       /* private void SetScore(PlayerSaveData currentData)
+        private void OnDisable()
         {
-            ScoreUpdated?.Invoke(currentData.score);
-        }*/
+            PlayerSaveData playerSaveData = new();
+            playerSaveData.score = _score;
+
+            GameEvents.OnScoreUpdated(_score);
+            GameEvents.OnPlayerSaveDataLoaded -= SetScore;
+        }
+
+        private void SetScore(PlayerSaveData currentData)
+        {
+            _score = currentData.score;
+            ScoreUpdated?.Invoke(_score);
+        }
 
         public void AddScore(int scoreToAdd)
         {
