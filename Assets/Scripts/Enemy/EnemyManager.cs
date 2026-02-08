@@ -1,3 +1,4 @@
+using Nithin.Core;
 using Nithin.Interfaces;
 using System;
 using System.Collections;
@@ -39,10 +40,12 @@ namespace Nithin.Enemy
             while (true)
             {
                 GameObject spawnedObj = enemyObjects.Dequeue();
-                EnemyMovement enemyMovement = spawnedObj.GetComponent<EnemyMovement>();
+                IEnemy enemy = spawnedObj.GetComponent<IEnemy>();
+                enemy.Initialize();
                 spawnedObj.SetActive(true);
+
+                EnemyMovement enemyMovement = spawnedObj.GetComponent<EnemyMovement>();
                 Register(enemyMovement);
-                StartCoroutine(DisableEnemy(spawnedObj, enemyMovement.autoDestroyTime));
                 yield return new WaitForSeconds(3f);
             }
         }
@@ -53,18 +56,14 @@ namespace Nithin.Enemy
             go.OnEnemyDied += HandleDeath;
         }
 
-        IEnumerator DisableEnemy(GameObject obj, int autoDestroy)
+        private void HandleDeath(EnemyMovement go, DeathReason deathReason)
         {
-            yield return new WaitForSeconds(autoDestroy);
-            obj.SetActive(false);
-            obj.transform.position = new Vector3(0, 5, 0);
-            enemyObjects.Enqueue(obj);
-        }
-
-        private void HandleDeath(EnemyMovement go)
-        {
-            scoreReceiver.AddScore(go.ScoreValue);
+            if (deathReason == DeathReason.Player)
+            {
+                scoreReceiver.AddScore(go.ScoreValue);
+            }
             go.OnEnemyDied -= HandleDeath;
+            enemyObjects.Enqueue(go.gameObject);
         }
     }
 }

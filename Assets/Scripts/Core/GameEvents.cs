@@ -3,8 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Nithin.Core
 {
+public enum DeathReason
+{
+    Player,
+    TimeOut
+}
     public static class GameEvents
     {
         public static Action<PlayerSaveData> OnPlayerSaveDataLoaded;
