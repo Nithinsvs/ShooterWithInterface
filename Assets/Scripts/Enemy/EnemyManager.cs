@@ -11,7 +11,7 @@ namespace Nithin.Enemy
     {        
         private IScoreReceiver scoreReceiver;
         [SerializeField] private MonoBehaviour scoreAdderComponent;
-        [SerializeField] private GameObject enemyPrefab;        
+        [SerializeField] private List<GameObject> enemyPrefab = new();        
 
         private Queue<GameObject> enemyObjects;
         private List<EnemyMovement> gameObjects = new();
@@ -27,7 +27,7 @@ namespace Nithin.Enemy
             enemyObjects = new Queue<GameObject>();
             for (int i = 0; i < 10; i++)
             {
-                GameObject enemyObj = Instantiate(enemyPrefab, new Vector3(Random.Range(-5, 5), 5f), Quaternion.identity);
+                GameObject enemyObj = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Count)], new Vector3(Random.Range(-5, 5), 5f), Quaternion.identity);
                 enemyObj.SetActive(false);
                 enemyObjects.Enqueue(enemyObj);
             }
@@ -39,9 +39,10 @@ namespace Nithin.Enemy
             while (true)
             {
                 GameObject spawnedObj = enemyObjects.Dequeue();
+                EnemyMovement enemyMovement = spawnedObj.GetComponent<EnemyMovement>();
                 spawnedObj.SetActive(true);
-                Register(spawnedObj.GetComponent<EnemyMovement>());
-                StartCoroutine(DisableEnemy(spawnedObj));
+                Register(enemyMovement);
+                StartCoroutine(DisableEnemy(spawnedObj, enemyMovement.autoDestroyTime));
                 yield return new WaitForSeconds(3f);
             }
         }
@@ -52,20 +53,18 @@ namespace Nithin.Enemy
             go.OnEnemyDied += HandleDeath;
         }
 
-        IEnumerator DisableEnemy(GameObject obj)
+        IEnumerator DisableEnemy(GameObject obj, int autoDestroy)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(autoDestroy);
             obj.SetActive(false);
             obj.transform.position = new Vector3(0, 5, 0);
             enemyObjects.Enqueue(obj);
         }
 
-        private void HandleDeath(IScoreProvider go)
+        private void HandleDeath(EnemyMovement go)
         {
-            /*if(go is IScoreProvider score)
-            {*/
-                scoreReceiver.AddScore(go.ScoreValue);
-            /*}*/
+            scoreReceiver.AddScore(go.ScoreValue);
+            go.OnEnemyDied -= HandleDeath;
         }
     }
 }

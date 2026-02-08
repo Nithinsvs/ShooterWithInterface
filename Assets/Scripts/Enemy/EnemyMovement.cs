@@ -7,10 +7,12 @@ namespace Nithin.Enemy
 {
     public class EnemyMovement : MonoBehaviour, IScoreProvider
     {
-        public event Action<IScoreProvider> OnEnemyDied;
+        public event Action<EnemyMovement> OnEnemyDied;
 
         [SerializeField] private float speed = 10f;
         [SerializeField] private int score = 2;
+
+        public int autoDestroyTime = 5;
 
 
         private Rigidbody2D rb;

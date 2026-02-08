@@ -153,7 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAdderComponent: {fileID: 1347036166}
-  enemyPrefab: {fileID: 8668001256768563138, guid: 4e4cf85b8b0db5a458ecd5892dea39f9, type: 3}
+  enemyPrefab:
+  - {fileID: 8668001256768563138, guid: 4e4cf85b8b0db5a458ecd5892dea39f9, type: 3}
+  - {fileID: 8668001256768563138, guid: 6a4abaa9a9cd82443b7c839c841fb047, type: 3}
 --- !u!4 &291836649
 Transform:
   m_ObjectHideFlags: 0
