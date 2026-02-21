@@ -1,7 +1,8 @@
+using Nithin.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Nithin.Player
 {
@@ -12,8 +13,10 @@ namespace Nithin.Player
         [SerializeField] private Transform bulletsHolder;
         [SerializeField] private Queue<GameObject> bulletsPool;
         [SerializeField] private Rigidbody2D rb;
+        
 
-        Vector2 movement;
+        private Vector2 movement;
+        private PlayerState currentState = PlayerState.Normal;
 
         private void Awake()
         {
@@ -40,13 +43,52 @@ namespace Nithin.Player
             float moveVertical = Input.GetAxisRaw("Vertical");
 
             movement = new Vector2(moveHorizontal, moveVertical).normalized;
-            
+
+            switch (currentState)
+            {
+                case PlayerState.Normal:
+
+                    ShootLogic();
+                    break;
+
+                case PlayerState.Shooting:
+
+                    ShootLogic();
+                    break;
+            }
+        }
+
+        private void ShootLogic()
+        {
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 GameObject currentBullet = bulletsPool.Dequeue();
                 currentBullet.transform.position = transform.position;
                 currentBullet.SetActive(true);
                 StartCoroutine(ReturnToPool(currentBullet));
+
+                ChangeState(PlayerState.Shooting);
+            }
+        }
+
+        private void ChangeState(PlayerState newState)
+        {
+            if (currentState == newState)
+            {
+                return;
+            }
+            currentState = newState;
+            switch (currentState)
+            {
+                case PlayerState.Normal:
+                    Debug.Log("Player is in normal state");
+                    break;
+                case PlayerState.Shooting:
+                    Debug.Log("Player is in shooting state");
+                    break;
+                case PlayerState.Dead:
+                    Debug.Log("Player is in dead state");
+                    break;
             }
         }
 
