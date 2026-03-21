@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 796151be445616442be5f7c4d776b092, type: 3}
-  m_Name: New Shop Item
+  m_Name: Item_2
   m_EditorClassIdentifier: 
   itemName: 
-  icon: {fileID: 21300000, guid: f6ddc11ba92d56f428adaf7b0dfc5c5a, type: 3}
-  price: 10
-  prefabToSpawn: {fileID: 0}
+  icon: {fileID: 21300000, guid: 4f71ed261f2cb2d438fd5918905c996f, type: 3}
+  price: 30
+  prefabToSpawn: {fileID: 4211628384005577253, guid: 7bb593db5e06a864286785145e494e59, type: 3}

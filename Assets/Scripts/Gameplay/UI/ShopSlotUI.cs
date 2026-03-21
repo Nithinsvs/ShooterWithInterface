@@ -21,8 +21,8 @@ public class ShopSlotUI : MonoBehaviour
         _itemImage.sprite = shopItemValues.icon;
     }
 
-    /*public void OnBuyClicked()
+    public void OnBuyClicked()
     {
         _shopManager.TryPurchase(_item);
-    }*/
+    }
 }

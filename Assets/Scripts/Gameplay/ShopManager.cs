@@ -9,12 +9,6 @@ public class ShopManager : MonoBehaviour
     public static event Action<int> OnAmountUpdated;
     [SerializeField] private int _currentAmount;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public bool TryPurchase(ShopItem shopItem)
     {
         if(_currentAmount > shopItem.price)
@@ -32,5 +26,6 @@ public class ShopManager : MonoBehaviour
     private void DeliverItem()
     {
         Debug.Log("item purchase successful");
+        OnAmountUpdated?.Invoke(_currentAmount);
     }
 }

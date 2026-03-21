@@ -10,6 +10,5 @@ namespace Nithin.Core
         public string itemName;
         public Sprite icon;
         public int price;
-        public GameObject prefabToSpawn;
     }
 }

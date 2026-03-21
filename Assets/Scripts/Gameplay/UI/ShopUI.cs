@@ -12,6 +12,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Transform _scrollView;
 
     [SerializeField] private List<ShopItem> _items;
+    [SerializeField] private List<ShopSlotUI> _shopItems;
 
     [SerializeField] private Text _currentAmount;
 
@@ -26,7 +27,7 @@ public class ShopUI : MonoBehaviour
         foreach (ShopItem item in _items)
         {
             GameObject go = Instantiate(_itemPrefab, _scrollView);
-            if(go.TryGetComponent(out ShopSlotUI shopItemData))
+            if (go.TryGetComponent(out ShopSlotUI shopItemData))
             {
                 shopItemData.Setup(item, _shopManager);
             }
@@ -35,17 +36,16 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
-        ShopManager.OnAmountUpdated += ShowScore;
+        ShopManager.OnAmountUpdated += ShowAmount;
     }
 
-    private void ShowScore(int value)
+    private void OnDisable()
+    {
+        ShopManager.OnAmountUpdated -= ShowAmount;
+    }
+
+    private void ShowAmount(int value)
     {
         _currentAmount.text = value.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
