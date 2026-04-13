@@ -19,7 +19,6 @@ public enum DeathReason
         public static void OnPlayerDataLoaded(PlayerSaveData playerSaveData)
         {
             OnPlayerSaveDataLoaded?.Invoke(playerSaveData);
-            Debug.Log(playerSaveData.score);
         }
 
         public static void OnScoreUpdated(int score)

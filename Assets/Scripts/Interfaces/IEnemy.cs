@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEnemy
 {
-    public void Initialize();
+    public void Initialize(Vector2 initialPosition);
 }

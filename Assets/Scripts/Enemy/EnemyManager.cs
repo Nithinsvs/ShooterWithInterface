@@ -1,59 +1,72 @@
 using Nithin.Core;
 using Nithin.Interfaces;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Nithin.Enemy
 {
     public class EnemyManager : MonoBehaviour
-    {        
+    {
+        private const float SpawnXMin = -5f;
+        private const float SpawnXMax = 5f;
+        private const float SpawnY = 5f;
+
         private IScoreReceiver scoreReceiver;
         [SerializeField] private MonoBehaviour scoreAdderComponent;
-        [SerializeField] private List<GameObject> enemyPrefab = new();        
 
-        private Queue<GameObject> enemyObjects;
-        private List<EnemyMovement> gameObjects = new();
+        [SerializeField] private FactoryEnemyCreator _enemyFactory;
+        [SerializeField] private int _poolPreloadCount = 10;
+        [SerializeField] private float _spawnIntervalSeconds = 3f;
 
-        void Awake()
+        private readonly Queue<GameObject> _enemyPoolObjects = new();
+        private WaitForSeconds _spawnWait;
+
+        private void Awake()
         {
             scoreReceiver = scoreAdderComponent as IScoreReceiver;
+            _spawnWait = new WaitForSeconds(_spawnIntervalSeconds);
         }
 
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-            enemyObjects = new Queue<GameObject>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < _poolPreloadCount; i++)
             {
-                GameObject enemyObj = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Count)], new Vector3(Random.Range(-5, 5), 5f), Quaternion.identity);
-                enemyObj.SetActive(false);
-                enemyObjects.Enqueue(enemyObj);
+                Vector2 spawnPosition = new Vector2(Random.Range(SpawnXMin, SpawnXMax), SpawnY);
+                GameObject enemyObject = _enemyFactory.CreateRandomEnemy(spawnPosition);
+                if (enemyObject == null)
+                {
+                    continue;
+                }
+
+                enemyObject.SetActive(false);
+                _enemyPoolObjects.Enqueue(enemyObject);
             }
+
             StartCoroutine(SpawnEnemy());
         }
 
-        IEnumerator SpawnEnemy()
+        private IEnumerator SpawnEnemy()
         {
             while (true)
             {
-                GameObject spawnedObj = enemyObjects.Dequeue();
-                IEnemy enemy = spawnedObj.GetComponent<IEnemy>();
-                enemy.Initialize();
+                while (_enemyPoolObjects.Count == 0)
+                {
+                    yield return null;
+                }
+
+                GameObject spawnedObj = _enemyPoolObjects.Dequeue();
+                Vector2 spawnPosition = new Vector2(Random.Range(SpawnXMin, SpawnXMax), SpawnY);
+
+                if (spawnedObj.TryGetComponent(out EnemyMovement enemyMovement))
+                {
+                    enemyMovement.Initialize(spawnPosition);
+                    enemyMovement.OnEnemyDied += HandleDeath;
+                }
+
                 spawnedObj.SetActive(true);
-
-                EnemyMovement enemyMovement = spawnedObj.GetComponent<EnemyMovement>();
-                Register(enemyMovement);
-                yield return new WaitForSeconds(3f);
+                yield return _spawnWait;
             }
-        }
-
-        private void Register(EnemyMovement go)
-        {
-            gameObjects.Add(go);
-            go.OnEnemyDied += HandleDeath;
         }
 
         private void HandleDeath(EnemyMovement go, DeathReason deathReason)
@@ -62,8 +75,9 @@ namespace Nithin.Enemy
             {
                 scoreReceiver.AddScore(go.ScoreValue);
             }
+
             go.OnEnemyDied -= HandleDeath;
-            enemyObjects.Enqueue(go.gameObject);
+            _enemyPoolObjects.Enqueue(go.gameObject);
         }
     }
 }

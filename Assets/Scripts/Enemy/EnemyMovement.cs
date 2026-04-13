@@ -1,7 +1,6 @@
 using Nithin.Core;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nithin.Enemy
@@ -15,12 +14,16 @@ namespace Nithin.Enemy
         [SerializeField] private int autoDestroyTime = 5;
 
         private Rigidbody2D rb;
-        private WaitForSeconds waitTimeToKill;
+        private WaitForSeconds _killWait;
+        private Vector2 _moveStep;
+
         public int ScoreValue => score;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            _killWait = new WaitForSeconds(autoDestroyTime);
+            _moveStep = Vector2.down * speed;
         }
 
         private void OnEnable()
@@ -28,15 +31,21 @@ namespace Nithin.Enemy
             StartCoroutine(KillEnemy());
         }
 
-        public void Initialize()
+        public void Initialize(Vector2 initialPosition)
         {
-            transform.position = new Vector3(0, 5, 0);
-            waitTimeToKill = new WaitForSeconds(autoDestroyTime);
+            if (rb != null)
+            {
+                rb.position = initialPosition;
+            }
+            else
+            {
+                transform.position = initialPosition;
+            }
         }
 
-        IEnumerator KillEnemy()
+        private IEnumerator KillEnemy()
         {
-            yield return waitTimeToKill;
+            yield return _killWait;
             OnEnemyDied?.Invoke(this, DeathReason.TimeOut);
             EnemyDeath();
         }
@@ -46,10 +55,14 @@ namespace Nithin.Enemy
             gameObject.SetActive(false);
         }
 
-        // Update is called once per frame
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            rb.MovePosition(rb.position + Vector2.down * Time.fixedDeltaTime * speed);
+            if (rb == null)
+            {
+                return;
+            }
+
+            rb.MovePosition(rb.position + _moveStep * Time.fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -65,6 +78,5 @@ namespace Nithin.Enemy
                 EnemyDeath();
             }
         }
-
     }
 }
