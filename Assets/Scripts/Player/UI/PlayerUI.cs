@@ -14,18 +14,11 @@ namespace Nithin.UI
         private void OnEnable()
         {
             PlayerScore.ScoreUpdated += ShowScore;
-            _playerHealth.OnHealthChange += ShowHealth;
         }
 
         private void OnDisable()
         {
             PlayerScore.ScoreUpdated -= ShowScore;
-            _playerHealth.OnHealthChange -= ShowHealth;
-        }
-
-        private void ShowHealth(int currentHealth)
-        {
-            //scoreText.text = currentHealth.ToString();
         }
 
         private void ShowScore(int score)

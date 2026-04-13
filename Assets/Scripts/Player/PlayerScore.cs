@@ -21,16 +21,12 @@ namespace Nithin.Player
 
         private void OnDisable()
         {
-            PlayerSaveData playerSaveData = new();
-            playerSaveData.score = _score;
-
-            GameEvents.OnScoreUpdated(_score);
             GameEvents.OnPlayerSaveDataLoaded -= SetScore;
         }
 
         private void SetScore(PlayerSaveData currentData)
         {
-            _score = currentData.score;
+            _score = currentData != null ? currentData.score : 0;
             ScoreUpdated?.Invoke(_score);
         }
 
@@ -38,6 +34,7 @@ namespace Nithin.Player
         {
             _score += scoreToAdd;
             ScoreUpdated?.Invoke(_score);
+            GameEvents.OnScoreUpdated(_score);
         }
     }
 }

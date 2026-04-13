@@ -36,8 +36,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerSaveData playerSaveData = new();
-        playerSaveData = SaveManager.LoadPlayerData();
+        PlayerSaveData playerSaveData = SaveManager.LoadPlayerData();
+        if (playerSaveData == null)
+            playerSaveData = new PlayerSaveData();
         GameEvents.OnPlayerDataLoaded(playerSaveData);
     }
 
