@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Nithin.Enemy
 {
-    public class EnemyMovement : MonoBehaviour, IScoreProvider, IEnemy
+    public class EnemyMovement : MonoBehaviour, IEnemy
     {
         public event Action<EnemyMovement, DeathReason> OnEnemyDied;
 
